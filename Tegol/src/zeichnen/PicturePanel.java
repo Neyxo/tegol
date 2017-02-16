@@ -12,21 +12,28 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import shape.TegolRectangle;
+import shape.TegolShape;
 
 public class PicturePanel extends JPanel implements MouseListener, MouseMotionListener
 {
 	Graphics2D g2;
 	Graphics g;
 	int initialize = 0;
-	private static int mouseX;
-	private static int mouseY;
-	private static int mouseXold;
-	private static int mouseYold;
+	private static int clickMouseX;
+	private static int clickMouseY;
+	private static int clickMouseXold;
+	private static int clickMouseYold;
+	private static int releaseMouseX;
+	private static int releaseMouseY;
 	private static long lastPaint = 0;
 	private SpecialBufferedImage image = null;
 	private TegolMain mainFrame;
+	private ArrayList<TegolShape> tegolShapes = new ArrayList();
 	
 	public PicturePanel(TegolMain mainFrame)
 	{
@@ -56,7 +63,7 @@ public class PicturePanel extends JPanel implements MouseListener, MouseMotionLi
 		switch(mainFrame.getControlTop().getSelectedTool())
 		{
 		case 1:
-			paintRectangle();
+			paintPoint();
 			break;
 		case 2:
 			paintPoint();
@@ -65,7 +72,6 @@ public class PicturePanel extends JPanel implements MouseListener, MouseMotionLi
 			paintPoint();
 			break;
 		case 4:
-			paintPoint();
 			break;
 		case 5:
 			paintPoint();
@@ -96,6 +102,10 @@ public class PicturePanel extends JPanel implements MouseListener, MouseMotionLi
 			break;
 		}
 		
+		if(tegolShapes.size() > 0){
+			drawShapes();
+		}
+		
 		if(initialize == 0)
 		{
 			g2.setColor(Color.WHITE);
@@ -121,7 +131,6 @@ public class PicturePanel extends JPanel implements MouseListener, MouseMotionLi
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -139,11 +148,11 @@ public class PicturePanel extends JPanel implements MouseListener, MouseMotionLi
 	@Override
 	public void mousePressed(MouseEvent arg0) 
 	{
-		mouseXold = mouseX;
-		mouseYold = mouseY;
-		mouseX = arg0.getX() - (this.getWidth() - image.getWidth()) / 2;
-		mouseY = arg0.getY() - (this.getHeight() - image.getHeight()) / 2;
-		if(!(mouseX < 0) && !(mouseX > image.getWidth()) && !(mouseY < 0) && !(mouseY > image.getHeight()))
+		clickMouseXold = clickMouseX;
+		clickMouseYold = clickMouseY;
+		clickMouseX = arg0.getX() - (this.getWidth() - image.getWidth()) / 2;
+		clickMouseY = arg0.getY() - (this.getHeight() - image.getHeight()) / 2;
+		if(!(clickMouseX < 0) && !(clickMouseX > image.getWidth()) && !(clickMouseY < 0) && !(clickMouseY > image.getHeight()))
 		{
 			repaint();
 		}
@@ -151,35 +160,50 @@ public class PicturePanel extends JPanel implements MouseListener, MouseMotionLi
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		releaseMouseX = arg0.getX() - (this.getWidth() - image.getWidth()) / 2;
+		releaseMouseY = arg0.getY() - (this.getHeight() - image.getHeight()) / 2;
 		
+		int selectedTool = mainFrame.getControlTop().getSelectedTool();
+		switch(selectedTool){
+			case 4:
+				int width = releaseMouseX - clickMouseX;
+				int height = releaseMouseX - clickMouseX;
+				addTegolShape(new TegolRectangle(releaseMouseX, releaseMouseY, height, width));
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			default:
+				break;
+		}	
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) 
 	{
-		mouseXold = mouseX;
-		mouseYold = mouseY;
-		mouseX = arg0.getX() - (this.getWidth() - image.getWidth()) / 2;
-		mouseY = arg0.getY() - (this.getHeight() - image.getHeight()) / 2;
-		if(!(mouseX < 0) && !(mouseX > image.getWidth()) && !(mouseY < 0) && !(mouseY > image.getHeight()))
+		clickMouseXold = clickMouseX;
+		clickMouseYold = clickMouseY;
+		clickMouseX = arg0.getX() - (this.getWidth() - image.getWidth()) / 2;
+		clickMouseY = arg0.getY() - (this.getHeight() - image.getHeight()) / 2;
+		if(!(clickMouseX < 0) && !(clickMouseX > image.getWidth()) && !(clickMouseY < 0) && !(clickMouseY > image.getHeight()))
 		{
 			repaint();
 		}
 	}
 	
-	private void paintRectangle()
+	private void paintRectangleBrush()
 	{
 		int brushSize = mainFrame.getControlWest().getControlTabs().getBrushControl().getBrushSize();
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(brushSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		if(System.currentTimeMillis() - lastPaint < 30)
 		{
-			g2.drawLine(mouseXold, mouseYold, mouseX, mouseY);
+			g2.drawLine(clickMouseXold, clickMouseYold, clickMouseX, clickMouseY);
 		}
 		else
 		{
-			g2.drawLine(mouseX, mouseY, mouseX, mouseY);
+			g2.drawLine(clickMouseX, clickMouseY, clickMouseX, clickMouseY);
 		}
 	}
 	
@@ -190,13 +214,28 @@ public class PicturePanel extends JPanel implements MouseListener, MouseMotionLi
 		if(System.currentTimeMillis() - lastPaint < 20)
 		{
 			g2.setStroke(new BasicStroke(brushSize * 2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-			g2.drawLine(mouseXold, mouseYold, mouseX, mouseY);
+			g2.drawLine(clickMouseXold, clickMouseYold, clickMouseX, clickMouseY);
 		}
 		else
 		{
 			g2.setStroke(new BasicStroke(brushSize));
-			g2.drawRoundRect(mouseX - 5, mouseY - 5, brushSize, brushSize, 200, 200);
+			g2.drawRoundRect(clickMouseX - 5, clickMouseY - 5, brushSize, brushSize, 200, 200);
 		}
+	}
+	
+	private void drawShapes(){
+		for (TegolShape tegolShape : tegolShapes) {
+			if(tegolShape instanceof TegolRectangle){
+				drawRectangle((TegolRectangle) tegolShape);
+			}
+		}
+	}
+	
+	private void drawRectangle(TegolRectangle shape){
+		g2.setColor(Color.RED);
+		int brushSize = mainFrame.getControlWest().getControlTabs().getBrushControl().getBrushSize();
+		g2.setStroke(new BasicStroke(brushSize * 2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g2.drawRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeigth());
 	}
 
 	@Override
@@ -219,5 +258,9 @@ public class PicturePanel extends JPanel implements MouseListener, MouseMotionLi
 
 	public void setImageHeight(int imageHeight) {
 //		PicturePanel.imageHeight = imageHeight;
+	}
+	
+	public void addTegolShape(TegolShape shape){
+		tegolShapes.add(shape);
 	}
 }

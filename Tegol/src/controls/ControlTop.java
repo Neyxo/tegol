@@ -17,9 +17,9 @@ public class ControlTop extends JPanel implements MouseListener
 	private JLabel spray;
 	private JLabel eraser;
 	private JLabel cut;
-	private JLabel colorchooser;
-	private JLabel fill;
-	private JLabel pencil;
+	private JLabel circle;
+	private JLabel rectangle;
+	private JLabel line;
 	private JLabel text;
 	private JLabel zoomOut;
 	private JLabel zoomIn;
@@ -50,16 +50,16 @@ public class ControlTop extends JPanel implements MouseListener
         cut.addMouseListener(this);
         
         icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
-        colorchooser = new JLabel("", icon, JLabel.CENTER);
-        colorchooser.addMouseListener(this);
+        circle = new JLabel("", icon, JLabel.CENTER);
+        circle.addMouseListener(this);
         
         icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
-        fill = new JLabel("", icon, JLabel.CENTER);
-        fill.addMouseListener(this);
+        rectangle = new JLabel("", icon, JLabel.CENTER);
+        rectangle.addMouseListener(this);
         
         icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
-        pencil = new JLabel("", icon, JLabel.CENTER);
-        pencil.addMouseListener(this);
+        line = new JLabel("", icon, JLabel.CENTER);
+        line.addMouseListener(this);
         
         icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
         text = new JLabel("", icon, JLabel.CENTER);
@@ -89,9 +89,9 @@ public class ControlTop extends JPanel implements MouseListener
         this.add(spray);
         this.add(eraser);
         this.add(cut);
-        this.add(colorchooser);
-        this.add(fill);
-        this.add(pencil);
+        this.add(circle);
+        this.add(rectangle);
+        this.add(line);
         this.add(text);
         this.add(zoomOut);
         this.add(zoomIn);
@@ -137,15 +137,15 @@ public class ControlTop extends JPanel implements MouseListener
 		{
 			selectedTool = 4;
 		}
-		else if(e.getSource() == colorchooser)
+		else if(e.getSource() == circle)
 		{
 			selectedTool = 5;
 		}
-		else if(e.getSource() == fill)
+		else if(e.getSource() == rectangle)
 		{
 			selectedTool = 6;
 		}
-		else if(e.getSource() == pencil)
+		else if(e.getSource() == line)
 		{
 			selectedTool = 7;
 		}
