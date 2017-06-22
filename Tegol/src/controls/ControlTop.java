@@ -33,55 +33,55 @@ public class ControlTop extends JPanel implements MouseListener
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 10));
 		this.setBackground(Color.GRAY);
 		
-		icon = new ImageIcon("src\\zeichnen\\img\\brush.png");
+		icon = new ImageIcon("src\\zeichnen\\img\\pencil.png");
         brush = new JLabel("", icon, JLabel.CENTER);
         brush.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\brush2.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\paint-brush.png");
         spray = new JLabel("", icon, JLabel.CENTER);
         spray.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\rollerbrush.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\paint-roll.png");
         eraser = new JLabel("", icon, JLabel.CENTER);
         eraser.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\spray.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\square.png");
         cut = new JLabel("", icon, JLabel.CENTER);
         cut.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\circle.png");
         circle = new JLabel("", icon, JLabel.CENTER);
         circle.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\line.png");
         rectangle = new JLabel("", icon, JLabel.CENTER);
         rectangle.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\eraser.png");
         line = new JLabel("", icon, JLabel.CENTER);
         line.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\click.png");
         text = new JLabel("", icon, JLabel.CENTER);
         text.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\void.png");
         zoomOut = new JLabel("", icon, JLabel.CENTER);
         zoomOut.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\void.png");
         zoomIn = new JLabel("", icon, JLabel.CENTER);
         zoomIn.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\void.png");
         newFile = new JLabel("", icon, JLabel.CENTER);
         newFile.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\void.png");
         saveFile = new JLabel("", icon, JLabel.CENTER);
         saveFile.addMouseListener(this);
         
-        icon = new ImageIcon("src\\zeichnen\\img\\squirrel.png");
+        icon = new ImageIcon("src\\zeichnen\\img\\void.png");
         loadFile = new JLabel("", icon, JLabel.CENTER);
         loadFile.addMouseListener(this);
         

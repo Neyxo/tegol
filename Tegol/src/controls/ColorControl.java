@@ -19,4 +19,12 @@ public class ColorControl extends JPanel{
 		this.setBackground(Color.WHITE);
 		this.add(colorChooser);
 	}
+
+	public JColorChooser getColorChooser() {
+		return colorChooser;
+	}
+
+	public void setColorChooser(JColorChooser colorChooser) {
+		this.colorChooser = colorChooser;
+	}
 }

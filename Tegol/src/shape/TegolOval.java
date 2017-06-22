@@ -4,12 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class TegolRectangle extends TegolShape{
-	
+public class TegolOval extends TegolShape{
+
 	private int width;
 	private int heigth;
 
-	public TegolRectangle(int x, int y, int width, int height, int brushSize, Color color) {
+	public TegolOval(int x, int y, int width, int height, int brushSize, Color color) {
 		super(x, y);
 		this.width = width;
 		this.heigth = height;
@@ -36,8 +36,8 @@ public class TegolRectangle extends TegolShape{
 	@Override
 	public void draw(Graphics2D g) {
 		g.setColor(this.getColor());
-		g.setStroke(new BasicStroke(this.getBrushSize(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
-		g.drawRect(this.getX(), this.getY(), this.getWidth(), this.getHeigth());
+		g.setStroke(new BasicStroke(this.getBrushSize(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.drawOval(this.getX(), this.getY(), this.getWidth(), this.getHeigth());
 	}
 
 }
